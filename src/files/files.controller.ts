@@ -1,17 +1,9 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Response,
-  UploadedFile,
-  UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Response, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { FilesService } from './files.service';
+import path from 'path';
 
 @ApiTags('Files')
 @Controller({
@@ -38,13 +30,21 @@ export class FilesController {
   })
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
-    @UploadedFile() file: Express.Multer.File | Express.MulterS3.File,
+    @UploadedFile() file: Express.Multer.File | Express.MulterS3.File
   ) {
     return this.filesService.uploadFile(file);
   }
 
-  @Get(':path')
-  download(@Param('path') path, @Response() response) {
-    return response.sendFile(path, { root: './files' });
+  @Get(':section/:fileBasename')
+  download(@Param('section') section, @Param('fileBasename') fileBasename, @Response() response) {
+    const rootDir = path.join('.', 'files', section);
+    console.log(rootDir);
+
+    const options = {
+      root: rootDir,
+      dotfiles: 'deny'
+    };
+
+    return response.sendFile(fileBasename, options);
   }
 }

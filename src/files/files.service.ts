@@ -21,26 +21,30 @@ export class FilesService {
         {
           status: HttpStatus.UNPROCESSABLE_ENTITY,
           errors: {
-            file: 'selectFile',
-          },
+            file: 'selectFile'
+          }
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
+    return await this.saveFile(file);
+  }
+
+  async saveFile(file): Promise<FileEntity> {
     const path = {
       local: `/${this.configService.get('app.apiPrefix', { infer: true })}/v1/${
         file.path
       }`,
-      s3: (file as Express.MulterS3.File).location,
+      s3: (file as Express.MulterS3.File).location
     };
 
     return this.fileRepository.save(
       this.fileRepository.create({
         path: path[
           this.configService.getOrThrow('file.driver', { infer: true })
-        ],
-      }),
+          ]
+      })
     );
   }
 }

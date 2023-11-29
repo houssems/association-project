@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import ms from 'ms';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../users/entities/user.entity';
@@ -133,7 +128,7 @@ export class AuthService {
       user = userByEmail;
     } else {
       const role = plainToClass(Role, {
-        id: RoleEnum.user,
+        id: RoleEnum.member
       });
       const status = plainToClass(Status, {
         id: StatusEnum.active,
@@ -193,7 +188,7 @@ export class AuthService {
       ...dto,
       email: dto.email,
       role: {
-        id: RoleEnum.user,
+        id: RoleEnum.member
       } as Role,
       status: {
         id: StatusEnum.inactive,
