@@ -4,15 +4,15 @@ import { FindOptionsWhere, Repository } from 'typeorm';
 import { Project } from './entities/project.entity';
 import { IPaginationOptions } from '../utils/types/pagination-options';
 import { FilterProjectDto, SortProjectDto } from './dto/query-project.dto';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateBeneficiaryDto } from './dto/create-project.dto';
 
 @Injectable()
-export class ProjectsService {
+export class BeneficiariesService {
   constructor(@InjectRepository(Project)
               private projectsRepository: Repository<Project>) {
   }
 
-  create(createProjectDto: CreateProjectDto): Promise<Project> {
+  create(createProjectDto: CreateBeneficiaryDto): Promise<Project> {
     return this.projectsRepository.save(
       this.projectsRepository.create(createProjectDto)
     );

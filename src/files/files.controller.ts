@@ -38,7 +38,6 @@ export class FilesController {
   @Get(':section/:fileBasename')
   download(@Param('section') section, @Param('fileBasename') fileBasename, @Response() response) {
     const rootDir = path.join('.', 'files', section);
-    console.log(rootDir);
 
     const options = {
       root: rootDir,

@@ -4,8 +4,8 @@ import { Roles } from 'src/roles/roles.decorator';
 import { RoleEnum } from 'src/roles/roles.enum';
 import { InfinityPaginationResultType } from '../utils/types/infinity-pagination-result.type';
 import { infinityPagination } from '../utils/infinity-pagination';
-import { ProjectsService } from './projects.service';
-import { QueryProjectDto } from './dto/query-project.dto';
+import { BeneficiariesService } from './projects.service';
+import { QueryBeneficiaryDto } from './dto/query-project.dto';
 import { Project } from './entities/project.entity';
 
 
@@ -16,16 +16,16 @@ import { Project } from './entities/project.entity';
   path: 'projects',
   version: '1'
 })
-export class ProjectsController {
+export class BeneficiariesController {
 
-  constructor(private readonly projectsService: ProjectsService) {
+  constructor(private readonly projectsService: BeneficiariesService) {
   }
 
   @Get(':topicId?')
   @HttpCode(HttpStatus.OK)
   async findAll(
     @Param('topicId') topicId,
-    @Query() query: QueryProjectDto,
+    @Query() query: QueryBeneficiaryDto,
   ): Promise<InfinityPaginationResultType<Project>> {
     const page = query?.page ?? 1;
     let limit = query?.limit ?? 10;

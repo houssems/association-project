@@ -21,7 +21,7 @@ import { AllConfigType } from 'src/config/config.type';
         const storages = {
           local: () =>
             diskStorage({
-              destination: './files',
+              destination: './files/public',
               filename: (request, file, callback) => {
                 callback(
                   null,

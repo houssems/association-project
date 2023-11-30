@@ -4,64 +4,57 @@ import {
   DeleteDateColumn,
   Entity,
   Index,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { EntityHelper } from 'src/utils/entity-helper';
 import { FileEntity } from 'src/files/entities/file.entity';
-import { Topic } from 'src/topics/entities/topic.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { ProjectsSeasonEnum } from '../projects-season.enum';
 import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
-@Entity('project')
-export class Project extends EntityHelper {
+@Entity('beneficiary')
+export class Beneficiary extends EntityHelper {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Expose()
   @Index()
-  @ApiProperty({ example: 'title' })
+  @ApiProperty({ example: 'Hdadra zoo' })
   @Column({ type: String, nullable: false })
-  title: string;
-
-  @ManyToOne(() => Topic, (topic) => topic.projects)
-  @JoinColumn({ name: 'topicId' })
-  topic: Topic;
+  name: string;
 
   @Expose()
-  @ApiProperty({ example: 'summary' })
-  @Column('text', { array: true, default: '{}', nullable: true })
-  summary: string[];
-
-  @Expose()
-  @ApiProperty({ example: 'P15D' })
+  @ApiProperty({ example: 'Hdadra 5017, Monastir' })
   @Column({ type: String, nullable: false })
-  duration: string;
+  address: string;
 
   @Expose()
-  @ApiProperty({ example: 16 })
-  @Column({ type: 'integer', nullable: false })
-  ageMinimum: number;
+  @ApiProperty({ example: 'Tunisie' })
+  @Column({ type: String, nullable: false })
+  country: string;
 
   @Expose()
-  @ApiProperty({ example: 18 })
-  @Column({ type: 'integer', nullable: true })
-  ageMaximum: number;
+  @ApiProperty({ example: '9xxxxxxx' })
+  @Column({ type: String, nullable: false })
+  telephone: string;
 
   @Expose()
-  @ApiProperty({ example: 'SUMMER' })
-  @Column({ type: String, nullable: true })
-  season: ProjectsSeasonEnum;
+  @ApiProperty({ example: 'hdadra.zoo@gmail.com' })
+  @Column({ type: String, nullable: false })
+  email: string;
 
   @Expose()
   @ManyToOne(() => FileEntity, {
     eager: true
   })
-  video?: FileEntity | null;
+  photo?: FileEntity | null;
+
+  @Expose()
+  @ApiProperty({ example: 'summary' })
+  @Column('text', { array: true, default: '{}', nullable: true })
+  summary: string[];
 
   @Expose()
   @ApiProperty({ example: '["section1", "section2"]' })

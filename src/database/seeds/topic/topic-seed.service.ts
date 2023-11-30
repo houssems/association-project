@@ -18,7 +18,6 @@ export class TopicSeedService {
   }
 
   async run() {
-    await this.repository.clear();
 
     const countTopic = await this.repository.count({
       where: {
@@ -44,7 +43,7 @@ export class TopicSeedService {
             'Chacun de nos chantiers de jeunes bénévoles dédiés aux lycéens est conçu pour vous donner une expérience sûre et parfaitement encadrée.'
           ],
           photo: {
-            'id': photo.id
+            id: photo.id
           },
           contact: {
             id: (user as User).id

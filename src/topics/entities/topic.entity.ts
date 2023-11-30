@@ -43,7 +43,8 @@ export class Topic extends EntityHelper {
   @Column({ type: 'text' })
   content: string;
 
-  @OneToMany(() => Project, (project) => project.topic, { nullable: true })
+  @Expose()
+  @OneToMany(() => Project, (project) => project.topic, { nullable: true, eager: true })
   projects: Project[];
 
   @Expose()
