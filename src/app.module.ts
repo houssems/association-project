@@ -30,6 +30,7 @@ import { MailerModule } from './mailer/mailer.module';
 import { TrainingModule } from './training/training.module';
 import { TopicsModule } from './topics/topics.module';
 import { ProjectsModule } from './projects/projects.module';
+import { BeneficiariesModule } from './beneficiaries/beneficiaries.module';
 
 @Module({
   imports: [
@@ -90,7 +91,8 @@ import { ProjectsModule } from './projects/projects.module';
     HomeModule,
     TrainingModule,
     TopicsModule,
-    ProjectsModule
+    ProjectsModule,
+    BeneficiariesModule
   ],
 })
 export class AppModule {}

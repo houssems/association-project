@@ -12,6 +12,7 @@ import { EntityHelper } from 'src/utils/entity-helper';
 import { FileEntity } from 'src/files/entities/file.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
+import { BeneficiaryStatusEnum } from '../beneficiary-status.enum';
 
 @Exclude()
 @Entity('beneficiary')
@@ -36,7 +37,7 @@ export class Beneficiary extends EntityHelper {
   country: string;
 
   @Expose()
-  @ApiProperty({ example: '9xxxxxxx' })
+  @ApiProperty({ example: '+2169xxxxxxx' })
   @Column({ type: String, nullable: false })
   telephone: string;
 
@@ -60,6 +61,11 @@ export class Beneficiary extends EntityHelper {
   @ApiProperty({ example: '["section1", "section2"]' })
   @Column('text', { array: true, default: '{}' })
   sections: string[];
+
+  @Expose()
+  @ApiProperty({ example: 'ACTIVE' })
+  @Column({ type: String, nullable: true })
+  status: BeneficiaryStatusEnum;
 
   @CreateDateColumn()
   createdAt: Date;

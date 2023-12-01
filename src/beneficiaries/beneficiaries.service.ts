@@ -1,41 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
-import { Project } from './entities/project.entity';
+import { Beneficiary } from './entities/Beneficiary.entity';
 import { IPaginationOptions } from '../utils/types/pagination-options';
-import { FilterProjectDto, SortProjectDto } from './dto/query-project.dto';
-import { CreateBeneficiaryDto } from './dto/create-project.dto';
+import { FilterBeneficiaryDto, SortBeneficiaryDto } from './dto/query-Beneficiary.dto';
+import { CreateBeneficiaryDto } from './dto/create-Beneficiary.dto';
 
 @Injectable()
 export class BeneficiariesService {
-  constructor(@InjectRepository(Project)
-              private projectsRepository: Repository<Project>) {
+  constructor(@InjectRepository(Beneficiary)
+              private BeneficiariesRepository: Repository<Beneficiary>) {
   }
 
-  create(createProjectDto: CreateBeneficiaryDto): Promise<Project> {
-    return this.projectsRepository.save(
-      this.projectsRepository.create(createProjectDto)
+  create(createBeneficiaryDto: CreateBeneficiaryDto): Promise<Beneficiary> {
+    return this.BeneficiariesRepository.save(
+      this.BeneficiariesRepository.create(createBeneficiaryDto)
     );
   }
 
   findManyWithPagination({
-                           topicId,
                            filterOptions,
                            sortOptions,
                            paginationOptions
                          }: {
-    topicId?: number | null,
-    filterOptions?: FilterProjectDto | null,
-    sortOptions?: SortProjectDto[] | null,
+    filterOptions?: FilterBeneficiaryDto | null,
+    sortOptions?: SortBeneficiaryDto[] | null,
     paginationOptions: IPaginationOptions;
-  }): Promise<Project[]> {
-    let where: FindOptionsWhere<Project> = filterOptions as FindOptionsWhere<Project>;
+  }): Promise<Beneficiary[]> {
+    let where: FindOptionsWhere<Beneficiary> = filterOptions as FindOptionsWhere<Beneficiary>;
 
-    if (!Number.isNaN(topicId)) {
-      where = {topic: {id: Number(topicId)}, ...filterOptions} as FindOptionsWhere<Project>;
-    }
-
-    return this.projectsRepository.find({
+    return this.BeneficiariesRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
       where,

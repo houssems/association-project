@@ -10,6 +10,7 @@ import { StatusSeedModule } from './status/status-seed.module';
 import { UserSeedModule } from './user/user-seed.module';
 import { TopicSeedModule } from './topic/topic-seed.module';
 import { ProjectSeedModule } from './project/project-seed.module';
+import { BeneficiarySeedModule } from './beneficiairy/beneficiary-seed.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ProjectSeedModule } from './project/project-seed.module';
     UserSeedModule,
     TopicSeedModule,
     ProjectSeedModule,
+    BeneficiarySeedModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],
